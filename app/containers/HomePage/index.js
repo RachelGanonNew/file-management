@@ -1,12 +1,10 @@
-
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-
-export default function HomePage() {
-  return (
-    <h1>
-      <FormattedMessage {...messages.header} />
-    </h1>
-  );
+import React, { memo } from 'react';
+import { compose } from 'redux';
+export function HomePage() {
+  return(
+ <div>hello project</div>)
 }
+
+export default compose(
+ memo,
+)(HomePage);

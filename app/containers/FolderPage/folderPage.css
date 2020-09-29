@@ -1,0 +1,20 @@
+/* $error-color: red;
+
+ .danger {
+   background-color: $error-color;
+ } */
+
+ .fa-trash-alt{
+  color: black;
+ }
+ .buttonDelete{
+  background-color:inherit;
+   border:none;
+
+ }
+.buttonDelete:focus{
+   outline-color:white;
+ }
+ .buttonDelete:hover{
+   border:none;
+} 
