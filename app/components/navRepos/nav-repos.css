@@ -1,0 +1,11 @@
+
+ul{
+    position: relative;
+    left:20px;
+}
+
+.MuiAvatar-colorDefault {
+    color: #fafafa;
+    background-color: #41addd !important;
+    cursor: pointer;
+}

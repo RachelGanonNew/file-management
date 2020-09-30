@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Folder
+ * Asynchronously loads the component for List
  *
  */
 

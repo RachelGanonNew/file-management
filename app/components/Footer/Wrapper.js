@@ -5,8 +5,7 @@ const Wrapper = styled.footer`
   align-items: center;
   justify-content: center;
   font-family: cursive;
-  font-size: medium
-  border-top: 1px solid #666;
-`;
+  font-size: medium;
+  color: #666`;
 
 export default Wrapper;

@@ -7,24 +7,18 @@ import  Docs  from '../../components/File-types/Docs';
 
 
 function File(props) {
-  const [isChoose,setIsChoose]=useState(false);
-  const onChoose = () =>{
-    if(!isChoose)
-      setIsChoose(true);
-    else setIsChoose(false);
-    chooseDetails(path);
-  };
+  
   return <>
-    <input type="checkbox"  onClick={(e)=>{onChoose(e,path)}} /> 
     {Switch(props.type)}
   </>
 
-  function Switch(props) {
-    switch (props) {
-      case 'pdf': return <Pdf  name={props.name} />
-      case 'png': return <Png  name={props.name} />
-      case 'jpg': return <Jpg  name={props.name}/>
-      case 'docs': return <Docs  name={props.name}/>
+  function Switch(type) {
+    switch (type) {
+      
+      case 'pdf': return <Pdf  {...props} />
+      case 'png': return <Png   {...props}  />
+      case 'jpg': return <Jpg   {...props} />
+      case 'docs': return <Docs   {...props} />
       default: return null
     }
   }

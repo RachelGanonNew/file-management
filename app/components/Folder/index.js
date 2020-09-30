@@ -1,66 +1,115 @@
-// /* eslint-disable indent */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 
-// import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
+import React, { useState, useEffect } from 'react';
+import propTypes from 'prop-types';
+import NavRepos from '../navRepos';
+import './folder.css';
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText ,
+  Avatar,
+  IconButton,
+  ListItemSecondaryAction,
+  FolderIcon,
+  MoreIcon,
+  Menu,
+  MenuItem,
+  AddIcon,
+  Checkbox,
+  Divider,
+  Fab,
+  Tooltip
+}  from '../../materialUi.moduls';
 
-// import reducer from '../../containers/App/reducer';
-import saga from './saga';
-import './Folder.css';
-import File from '../File';
-// eslint-disable-next-line import/no-cycle
-import List from '../nav-folder';
-const key = 'folder';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    fab: {
+      margin: theme.spacing(3),
+    },
+  }));
+function Folder({ onLoadChildren, path, name, childrenList }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const classes = useStyles();
 
 
-const Folder = ({ path, childrenList, onLoadChildren, createFolder, chooseDetails }) => {
-  // useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   useEffect(() => {
-    if (path === '') onLoadChildren(path);
-  }, []);
+  }, [isOpen]);
+  const onOpen = (event, childPath) => {
+    if (!isOpen) {
+      onLoadChildren(childPath);
+      setIsOpen(true);
+    }
+    else {
+      setIsOpen(false);
+    }
+  };
 
+  return (<>
+    <List>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <FolderIcon onClick={(e) => { onOpen(e, path) }} />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary={name}></ListItemText>
+        <ListItemSecondaryAction>
+          <IconButton onClick={handleClick}>
+            <MoreIcon variant="contained" className="menu-blue" />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>
+              <Tooltip title="Add Folder">
+              <Fab className={classes.fab}>
+                <AddIcon />
+              </Fab>
+              </Tooltip>
+            </MenuItem>
+            <Divider className="menu-blue" />
+            <MenuItem onClick={handleClose}>
+             <Tooltip title="Mark It For Delete">
+              <Checkbox className="menu-blue"></Checkbox>
+              </Tooltip>
+            </MenuItem>
+          </Menu>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </List>
 
-
-  const renderChildren = () =>
-    childrenList.map(child =>
-      child.type === 'folder' ? (
-
-        <List key={child.path}
-          createFolder={createFolder}
-          name={child.name}
-          path={child.path}
-          childrenList={child.children}
-          onLoadChildren={onLoadChildren}
-          chooseDetails={chooseDetails} />
-      ) : (
-          <li key={child.path}
-            className="list-group-item" id="li">
-            <File key={child.path}
-              fileType={child.type}
-              // fileType={child.path.slice(child.path.lastIndexOf('.') + 1)} 
-              chooseDetails={chooseDetails}
-              path={child.path}
-              name={child.name} /></li>
-        ),
-    );
-  return (
-    <>
-      <ul>
-        {renderChildren()}
-      </ul>
-    </>
-  );
+    {
+      isOpen ? <NavRepos
+        key={path}
+        path={path}
+        name={name}
+        childrenList={childrenList}
+        onLoadChildren={onLoadChildren}
+        /> : null
+    }
+  </>);
 }
 
-
 Folder.propTypes = {
-  path: PropTypes.string,
-  name: PropTypes.string,
-  childrenList: PropTypes.array,
-  onLoadChildren: PropTypes.func,
-  chooseDetails: PropTypes.func,
-  createFolder: PropTypes.func,
+  onLoadChildren: propTypes.func,
+  path: propTypes.string,
+  name: propTypes.string,
+  childrenList: propTypes.array,
 };
+
 export default Folder;

@@ -13,12 +13,12 @@ export function* loadChildren(action) {
 }
 
 const getChildrenByPath = path => {
-  const pathList = path.split('/');
+  const pathes = path.split('/');
   let folders = data.default;
 
   if (path !== '') {
 
-    pathList.forEach(pathName => {
+    pathes.forEach(pathName => {
       if (pathName !== '')
         folders = folders.find(folder => folder.name === pathName).children;
     });
@@ -32,9 +32,6 @@ const getChildrenByPath = path => {
   return folders;
 };
 
-/**
- * Root saga manages watcher lifecycle
- */
 export default function* childrenData() {
   yield takeLatest(LOAD_CHILDREN, loadChildren);
 }

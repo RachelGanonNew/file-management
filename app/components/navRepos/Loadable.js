@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Item
+ * Asynchronously loads the component for Folder
  *
  */
 

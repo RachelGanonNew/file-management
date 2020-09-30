@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 export default function App() {
   return (
     <div>
-      <Header/> 
+       <Header/> 
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/folders" component={FolderPage} />

@@ -2,14 +2,29 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Img from '../../Img';
 import DOCS from '../../../images/docs.png';
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText ,
+  Avatar,
+  IconButton
+}  from '../../../materialUi.moduls';
+
 
 function Docs(props) {
   return (
-    <div>
-      <Img src={DOCS}></Img>
-      {props.name}<br></br>
-      {props.path}
-    </div>
+    <List>
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <IconButton>
+          <Img src={DOCS}></Img>
+          </IconButton></Avatar>
+      </ListItemAvatar>
+      <ListItemText primary= {props.name}></ListItemText>
+    </ListItem>
+  </List>
   );
 }
 

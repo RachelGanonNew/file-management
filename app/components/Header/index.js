@@ -5,7 +5,7 @@ import Img from '../Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
 import messages from './messages';
-
+import './img.css';
 function Header() {
   return <div>
   <img  src={HEADER} id="header-img"></img>

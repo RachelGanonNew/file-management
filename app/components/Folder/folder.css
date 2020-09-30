@@ -1,21 +1,30 @@
+.menu-blue{
+    color:#41addd !important;
+}
+
+.MuiListItem-secondaryAction{
+    background-color: whitesmoke;
+}
+.MuiList-padding{
+    width: max-content;
+    padding-top: 8px;
+    padding-bottom: 0;
+}
+.MuiIconButton-root{
+    padding: 0 !important;
+}
+.MuiListItem-root{
+    background-color: whitesmoke;
+}
+.MuiFab-root {
+    color: #fafafa !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: #41addd !important;
+}
 
 ul{
-    position: relative;
-    left:20px;
+    left: 0;
 }
-.fas{
-    height:20px;
-    width:20px;
-    font-size: 20px;
-    background-color:white;
-}
-#li{
-    width: 25%;
-    background-color: darkgray;
-    border-color:ridge 3px rgba(0, 0, 255, 0.562);
-    margin: 2px;
-    display: flex;
-    font-family: cursive;
-    height: 48px
-}
-
