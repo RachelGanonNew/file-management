@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) =>
     },
   }));
 function Folder({ onLoadChildren, path, name, childrenList }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
 
@@ -44,14 +44,14 @@ function Folder({ onLoadChildren, path, name, childrenList }) {
   };
 
   useEffect(() => {
-  }, [isOpen]);
-  const onOpen = (event, childPath) => {
-    if (!isOpen) {
-      onLoadChildren(childPath);
-      setIsOpen(true);
+  }, [isFolderOpen]);
+  const openFolder = ( event,path) => {
+    if (!isFolderOpen) { 
+      onLoadChildren(path);
+      setIsFolderOpen(true);
     }
     else {
-      setIsOpen(false);
+      setIsFolderOpen(false);
     }
   };
 
@@ -60,7 +60,7 @@ function Folder({ onLoadChildren, path, name, childrenList }) {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <FolderIcon onClick={(e) => { onOpen(e, path) }} />
+            <FolderIcon onClick={(f) => { openFolder(f, path) }} />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary={name}></ListItemText>
@@ -94,7 +94,7 @@ function Folder({ onLoadChildren, path, name, childrenList }) {
     </List>
 
     {
-      isOpen ? <NavRepos
+      isFolderOpen ? <NavRepos
         key={path}
         path={path}
         name={name}
