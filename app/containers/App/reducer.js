@@ -39,7 +39,9 @@ const appReducer = (state = initialState, action) =>
         draft.loading = false;
         break;
       case CREATE_FOLDER:
+        //מקבל לפונקציה addFolder path ושם של תיקיה להוסיף
       case DELETE:
+       
         break;
       default:
     }
@@ -59,5 +61,7 @@ const getFolderByPath = (rootFolder, path) => {
 
   return folder;
 };
+
+
 
 export default appReducer;

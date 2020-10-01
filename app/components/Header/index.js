@@ -16,6 +16,9 @@ function Header() {
         <HeaderLink to="/folders">
         <FormattedMessage {...messages.folders} />
         </HeaderLink>
+        <HeaderLink to="/table">
+        <FormattedMessage {...messages.table} />
+        </HeaderLink>
       </NavBar>
   </div> 
 }

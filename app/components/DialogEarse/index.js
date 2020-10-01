@@ -9,7 +9,7 @@ import React, { memo } from 'react';
   DialogContentText,
   DialogActions ,
   Button,
-}  from '../../../materialUi.moduls';
+}  from '../../materialUi.moduls';
 function DialogEarse() {
   const [open, setOpen] = React.useState(true);
 

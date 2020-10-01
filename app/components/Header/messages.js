@@ -11,5 +11,8 @@ export default defineMessages({
     id: `${scope}.folders`,
     defaultMessage: 'Folders',
   },
-
+  table: {
+    id: `${scope}.table`,
+    defaultMessage: 'Table',
+  },
 });

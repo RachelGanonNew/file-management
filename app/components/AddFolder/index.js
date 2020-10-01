@@ -1,17 +1,31 @@
 import React, { memo } from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { TextField } from '../../materialUi.moduls';
+import PropTypes from 'prop-types';
 
-function AddFolder() {
-  return (
-    <div>
-      <FormattedMessage {...messages.header} />
-    </div>
-  );
+function AddFolder(props) {
+const [folderNameInput,setFolderNameInput]=useState("");
+
+const updateFolderNameInput= event =>{
+  setFolderNameInput(event.target.value);
+};
+ function add(event){
+    if(event.key === 'Enter'){
+      props.createFolder(props.path,folderNameInput);
+      setFolderNameInput("");
+    }
+}
+  return ( <>
+    <TextField id="outlined-basic" 
+    label="Folder Name"
+    onChange={updateFolderNameInput}
+     variant="outlined" onKeyPress={(event) => add(event)} />
+  </>
+  )
 }
 
-AddFolder.propTypes = {};
+AddFolder.propTypes = {
+  props:PropTypes.object
+};
 
 export default memo(AddFolder);
-
 

@@ -45,7 +45,7 @@ export function childrenLoadingError(error) {
     error,
   };
 }
-export function deleteItem(choosePathes) {
+export function deleteRepos(choosePathes) {
   return {
     type: DELETE,
     choosePathes,

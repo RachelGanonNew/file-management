@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import NavRepos from '../navRepos';
+import AddFolder from '../../components/AddFolder';
 import './folder.css';
 import {
   List,
@@ -29,12 +30,21 @@ const useStyles = makeStyles((theme) =>
       margin: theme.spacing(3),
     },
   }));
-function Folder({ onLoadChildren, path, name, childrenList }) {
+function Folder({ onLoadChildren, path, name, childrenList,createFolder, chooseDetails}) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
-
-
+  const [isChoose,setIsChoose]=useState(false);
+  const onChoose = () =>{
+    if(!isChoose)
+      setIsChoose(true);
+    else setIsChoose(false);
+    chooseDetails(path);
+  };
+function openAddFolder()
+{
+  <AddFolder  createFolder={createFolder} path={path}></AddFolder>
+}
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -75,7 +85,7 @@ function Folder({ onLoadChildren, path, name, childrenList }) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={openAddFolder}>
               <Tooltip title="Add Folder">
               <Fab className={classes.fab}>
                 <AddIcon />
@@ -85,7 +95,7 @@ function Folder({ onLoadChildren, path, name, childrenList }) {
             <Divider className="menu-blue" />
             <MenuItem onClick={handleClose}>
              <Tooltip title="Mark It For Delete">
-              <Checkbox className="menu-blue"></Checkbox>
+              <Checkbox className="menu-blue" onClick={(e)=>{onChoose(e,path)}}></Checkbox>
               </Tooltip>
             </MenuItem>
           </Menu>
@@ -100,6 +110,7 @@ function Folder({ onLoadChildren, path, name, childrenList }) {
         name={name}
         childrenList={childrenList}
         onLoadChildren={onLoadChildren}
+        
         /> : null
     }
   </>);
@@ -110,6 +121,7 @@ Folder.propTypes = {
   path: propTypes.string,
   name: propTypes.string,
   childrenList: propTypes.array,
+  chooseDetails:propTypes.func,
 };
 
 export default Folder;

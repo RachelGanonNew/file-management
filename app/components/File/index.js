@@ -13,8 +13,7 @@ function File(props) {
   </>
 
   function Switch(type) {
-    switch (type) {
-      
+    switch (type) {  
       case 'pdf': return <Pdf  {...props} />
       case 'png': return <Png   {...props}  />
       case 'jpg': return <Jpg   {...props} />

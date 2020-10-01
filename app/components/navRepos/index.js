@@ -8,7 +8,7 @@ import Folder from '../Folder';
 const key = 'folder';
 
 
-const NavRepos = ({ path, childrenList, onLoadChildren }) => {
+const NavRepos = ({ path, childrenList, onLoadChildren ,createFolder,chooseDetails}) => {
   useInjectSaga({ key, saga });
   useEffect(() => {
     if (path === '') onLoadChildren(path);
@@ -24,6 +24,7 @@ const NavRepos = ({ path, childrenList, onLoadChildren }) => {
           path={child.path}
           childrenList={child.children}
           onLoadChildren={onLoadChildren}
+          chooseDetails={chooseDetails}
           />
       ) : (
           <ul key={child.path}>
@@ -31,7 +32,8 @@ const NavRepos = ({ path, childrenList, onLoadChildren }) => {
               key={child.path}
               type={child.type}
               path={child.path}
-              name={child.name} /></ul>
+              name={child.name}
+              chooseDetails={chooseDetails} /></ul>
         ),
     );
   return (
@@ -48,5 +50,7 @@ NavRepos.propTypes = {
   path: PropTypes.string,
   childrenList: PropTypes.array,
   onLoadChildren: PropTypes.func,
+  createFolder:PropTypes.func,
+  chooseDetails:PropTypes.func,
 };
 export default NavRepos;
