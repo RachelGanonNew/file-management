@@ -1,14 +1,17 @@
 
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+
 import NavRepos from '../navRepos';
-import AddFolder from '../../components/AddFolder';
+
+import AddFolder from "../AddFolder";
 import './folder.css';
 import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText ,
+  ListItemText,
   Avatar,
   IconButton,
   ListItemSecondaryAction,
@@ -20,31 +23,31 @@ import {
   Checkbox,
   Divider,
   Fab,
-  Tooltip
-}  from '../../materialUi.moduls';
+  Tooltip,
+  FolderOpenIcon
+} from '../../materialUi.moduls';
 
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) =>
   createStyles({
     fab: {
       margin: theme.spacing(3),
     },
   }));
-function Folder({ onLoadChildren, path, name, childrenList,createFolder, chooseDetails}) {
+function Folder({ onLoadChildren, path, name, childrenList, createFolder, chooseDetails }) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [onClickAdd, setOnClickAdd] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
-  const [isChoose,setIsChoose]=useState(false);
-  const onChoose = () =>{
+  const [isChoose, setIsChoose] = useState(false);
+  const onChoose = (event, childPath) =>{
     if(!isChoose)
       setIsChoose(true);
     else setIsChoose(false);
-    chooseDetails(path);
-  };
-function openAddFolder()
-{
-  <AddFolder  createFolder={createFolder} path={path}></AddFolder>
-}
+    chooseDetails(childPath);
+  }
+  const openAddFolder = () =>{
+    setOnClickAdd(true);
+  }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,9 +58,9 @@ function openAddFolder()
 
   useEffect(() => {
   }, [isFolderOpen]);
-  const openFolder = ( event,path) => {
-    if (!isFolderOpen) { 
-      onLoadChildren(path);
+  const openFolder = (event, p) => {
+    if (!isFolderOpen) {
+      onLoadChildren(p);
       setIsFolderOpen(true);
     }
     else {
@@ -86,16 +89,17 @@ function openAddFolder()
             onClose={handleClose}
           >
             <MenuItem onClick={openAddFolder}>
+              {onClickAdd && <AddFolder createNewFolder={createFolder} path={path}/>}  
               <Tooltip title="Add Folder">
-              <Fab className={classes.fab}>
-                <AddIcon />
-              </Fab>
+                <Fab className={classes.fab}>
+                  <AddIcon />
+                </Fab>
               </Tooltip>
             </MenuItem>
             <Divider className="menu-blue" />
             <MenuItem onClick={handleClose}>
-             <Tooltip title="Mark It For Delete">
-              <Checkbox className="menu-blue" onClick={(e)=>{onChoose(e,path)}}></Checkbox>
+              <Tooltip title="Mark It For Delete">
+                <Checkbox className="menu-blue" onClick={(e) => { onChoose(e, path) }}></Checkbox>
               </Tooltip>
             </MenuItem>
           </Menu>
@@ -110,8 +114,9 @@ function openAddFolder()
         name={name}
         childrenList={childrenList}
         onLoadChildren={onLoadChildren}
-        
-        /> : null
+        chooseDetails={chooseDetails}
+        createFolder={createFolder}
+      /> : null
     }
   </>);
 }
@@ -121,7 +126,8 @@ Folder.propTypes = {
   path: propTypes.string,
   name: propTypes.string,
   childrenList: propTypes.array,
-  chooseDetails:propTypes.func,
+  chooseDetails: propTypes.func,
+  createFolder: propTypes.func,
 };
 
 export default Folder;

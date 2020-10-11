@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for TableSummarizing
+ * Asynchronously loads the component for Table
  *
  */
 

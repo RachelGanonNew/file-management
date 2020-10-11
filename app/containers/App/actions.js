@@ -1,16 +1,15 @@
 import { 
-   LOAD_CHILDREN,
-   LOAD_CHILDREN_SUCCESS, 
-   LOAD_CHILDREN_ERROR, 
-   CREATE_FOLDER,
-   DELETE
-  } from './constants';
+  LOAD_CHILDREN,
+  LOAD_CHILDREN_SUCCESS, 
+  LOAD_CHILDREN_ERROR, 
+  CREATE_FOLDER,
+  CREATE_FOLDER_SUCCESS,
+  CREATE_FOLDER_ERROR,
+  DELETE_REPOS,
+  DELETE_REPOS_SUCCESS,
+  DELETE_REPOS_ERROR,
+} from './constants';
 
-/**
- * Load the children of specific path, this action starts the request saga
- *
- * @return {object} An action object with a type of LOAD_CHILDREN
- */
 export function loadChildren(path) {
   return {
     type: LOAD_CHILDREN,
@@ -18,28 +17,15 @@ export function loadChildren(path) {
   };
 }
 
-/**
- * Dispatched when the children are loaded by the request saga
- *
- * @param  {array} children The children of specific path
- *
- * @return {Array}       array with a type of LOAD_CHILDREN_SUCCESS passing the repos
- */
-export function childrenLoaded(path, children) {
+export function loadChildrenSuccess(path,children) {
   return {
     type: LOAD_CHILDREN_SUCCESS,
     path,
     children,
   };
 }
-/**
- * Dispatched when loading the children fails
- *
- * @param  {object} error The error
- *
- * @return {object}       An action object with a type of LOAD_CHILDREN_ERROR passing the error
- */
-export function childrenLoadingError(error) {
+
+export function loadChildrenError(error) {
   return {
     type: LOAD_CHILDREN_ERROR,
     error,
@@ -47,15 +33,42 @@ export function childrenLoadingError(error) {
 }
 export function deleteRepos(choosePathes) {
   return {
-    type: DELETE,
+    type: DELETE_REPOS,
     choosePathes,
   };
 }
-export function createFolder(path,name){
+export function deleteReposSuccess(choosePathes) {
+  return {
+    type: DELETE_REPOS_SUCCESS,
+    choosePathes,
+  };
+}
+export function deleteReposError(error) {
+  return {
+    type: DELETE_REPOS_ERROR,
+    error,
+  };
+}
+export function createNewFolder(path,name){
   return {
     type: CREATE_FOLDER,
     path,
     name,
   };
 }
+export function createNewFolderSuccess(path,name,repos){
+  return {
+    type: CREATE_FOLDER_SUCCESS,
+    path,
+    name,
+    repos
+  };
+}
+export function createNewFolderError(error) {
+  return {
+    type: CREATE_FOLDER_ERROR,
+    error,
+  };
+}
+
 

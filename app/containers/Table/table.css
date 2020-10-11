@@ -1,0 +1,8 @@
+.MuiTableCell-root {
+    text-align: center !important;
+    border-bottom: 1px solid #41addd !important;
+}
+.MuiTable-root {
+    width: 64% !important;
+    margin-left: 16% !important;
+}

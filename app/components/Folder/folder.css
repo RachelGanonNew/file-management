@@ -1,14 +1,25 @@
 .menu-blue{
     color:#41addd !important;
 }
+.menu-gray{
+    color: gray;
+}
+.MuiButton-root {
+    margin-left: 5% !important;
+}
 
+.MuiButton-containedSecondary{
+ background-color: #41addd !important;
+ margin-left: 12% !important;
+}
 .MuiListItem-secondaryAction{
-    background-color: whitesmoke;
+    background-color: rgb(97, 90, 90);
 }
 .MuiList-padding{
     width: max-content;
     padding-top: 8px;
     padding-bottom: 0;
+    margin-left: 10% !important;
 }
 .MuiIconButton-root{
     padding: 0 !important;
