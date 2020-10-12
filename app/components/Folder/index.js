@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-
 import NavRepos from '../navRepos';
 
 import AddFolder from "../AddFolder";
@@ -23,8 +22,7 @@ import {
   Checkbox,
   Divider,
   Fab,
-  Tooltip,
-  FolderOpenIcon
+  Tooltip
 } from '../../materialUi.moduls';
 
 const useStyles = makeStyles((theme) =>
@@ -118,7 +116,7 @@ function Folder({ onLoadChildren, path, name, childrenList, createFolder, choose
         createFolder={createFolder}
       /> : null
     }
-  </>);
+  </>)
 }
 
 Folder.propTypes = {

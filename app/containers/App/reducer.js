@@ -99,7 +99,6 @@ function deleteFromTree(o, id) {
   index = -1;
   [o].some(getNode);
 }
-const isValid = (action) => action.name !== '' && action.name !== ' ';
 const getChildrenByPath = (path) => {
   const pathList = path.split('/');
   let count = 0;

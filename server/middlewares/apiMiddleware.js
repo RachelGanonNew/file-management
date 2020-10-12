@@ -23,7 +23,7 @@ router.get('/get/*', (req, res) => {
   fs.readFile(jsonPath, 'utf8', (err, data) => {
     const list = JSON.parse(data);
     const path = req.params['0'];
-    const item = _getItem(list, path);
+    const item = deep(list, path);
     res.end(res.json(item));
   });
 });
@@ -65,7 +65,7 @@ router.post('/delete/*', (req, res) => {
 
 
 // Private functions
-const _getItem = (list, p) => {
+const deep = (list, p) => {
   if (!p) {
     return lazyLoading(list);
   }
