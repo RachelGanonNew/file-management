@@ -7,15 +7,15 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ErrorBoundary from '../../ErrorBoundry/error-boundry';
 // import Table from '../Table';
-
+// import Error2 from '../../ErrorBoundry/error2';
 
 const HomePage = lazy(() => import('../HomePage/Loadable'));
 const FolderPage = lazy(() => import('../FolderPage'));
 const Table = lazy(() => import('../Table'));
 const NotFoundPage = lazy(() => import('../NotFoundPage/Loadable'));
-export default function App() {
+export  default function App() {
   return (
-    <div>
+    <>
 
       <Header />
       <ErrorBoundary>
@@ -30,7 +30,8 @@ export default function App() {
       </ErrorBoundary>
       <Footer />
 
-    </div>
+    </>
 
   );
 }
+// export default Error2(App);

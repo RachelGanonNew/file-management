@@ -47,8 +47,8 @@ router.post('/add/*', (req, res) => {
 
 router.post('/delete/*', (req, res) => {
   fs.readFile(jsonPath, 'utf8', (err, data) => {
+    console.log("this is delete");
     const list = JSON.parse(data);
-    console.log("req",req.body);
     const pathes = req.body;
     const newList = _deleteItems(list, pathes.choosePathes);
     const jsonData = JSON.stringify(newList);
@@ -97,11 +97,17 @@ const _addItem = (list, itemPath, itemName) => {
 const isValid = (name) => name !== '' && name !== ' ';
 
 const _deleteItems = (list, pathes) => {
-  pathes.forEach(element => {
-    console.log("elem",element);
-    list = _.filterDeep(list, { path: element }, { childrenPath: "children", leavesOnly: false, skipChildren: true });
-    console.log("res",list);
-  });
+  console.log("list api",list);
+  console.log("pathes api",pathes);
+  if (pathes) {
+    pathes.forEach(element => {
+      console.log("elem",element);
+      console.log("befor list",JSON.stringify(list)) ;
+      list = _.filterDeep(list, { path: element }, { childrenPath: "children", skipChildren: true });
+      console.log("filter list",JSON.stringify(list)) ;
+    })
+  }
+  console.log("return list",list);
   return list;
 }
 

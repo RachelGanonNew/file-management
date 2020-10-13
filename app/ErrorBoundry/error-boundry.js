@@ -9,7 +9,7 @@ class ErrorBoundary extends React.Component {
         errorInfo
       });
     }
-
+     
     render() {
       if (this.state.errorInfo) {
         return (

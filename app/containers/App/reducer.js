@@ -12,7 +12,6 @@ import {
   DELETE_REPOS_SUCCESS,
   DELETE_REPOS_ERROR,
 } from './constants';
-import * as data from '../../../server/data/data.json';
 const _ = deepdash(lodash);
 export const initialState = {
   loading: false,
@@ -32,6 +31,7 @@ const appReducer = (state = initialState, action) =>
       case LOAD_CHILDREN:
       case CREATE_FOLDER:
       case DELETE_REPOS:
+        debugger;
         draft.loading = true;
         draft.error = false;
         break;
@@ -42,11 +42,14 @@ const appReducer = (state = initialState, action) =>
         draft.rootFolder = { ...state.rootFolder };
         draft.loading = false;
         break;
-      case CREATE_FOLDER_SUCCESS: 
-      case DELETE_REPOS_SUCCESS:   
+      case CREATE_FOLDER_SUCCESS:
         break;
-
-
+      case DELETE_REPOS_SUCCESS:
+        debugger;
+        const deleteItemsState = JSON.parse(JSON.stringify(state.rootFolder));
+        deleteItemsState.children = JSON.parse(JSON.stringify(action.rootFolder));
+        draft.rootFolder = deleteItemsState;
+        break;
       case LOAD_CHILDREN_ERROR:
       case CREATE_FOLDER_ERROR:
       case DELETE_REPOS_ERROR:
@@ -57,14 +60,6 @@ const appReducer = (state = initialState, action) =>
     }
 
   });
-
-const deep = (list, p) => {
-  const res = _.findDeep(list, { path: p }, { childrenPath: "children", leavesOnly: false, skipChildren: true });
-  console.log("res.value", res.value);
-  return res.value;
-};
-
-
 
 const getCurrent = (rootFolders, childPath) => {
   const pathList = childPath.split('/');
@@ -79,41 +74,4 @@ const getCurrent = (rootFolders, childPath) => {
 
   return folder;
 };
-
-function deleteFromTree(o, id) {
-  let index;
-  function getNode(a, i) {
-    if (a.path === id) {
-      index = i;
-      return true;
-    }
-    if (Array.isArray(a.children) && a.children.some(getNode)) {
-      if (index >= 0) {
-        a.children.splice(index, 1);
-        index = -1;
-      }
-      return true;
-    }
-    return true;
-  }
-  index = -1;
-  [o].some(getNode);
-}
-const getChildrenByPath = (path) => {
-  const pathList = path.split('/');
-  let count = 0;
-  let folders = data.default;
-  if (path !== '') {
-    pathList.forEach(pathName => {
-      count += 1;
-      if (pathName !== '') {
-        folders = folders.find(f => f.name === pathName);
-        if (pathList.length !== count)
-          folders = folders.children;
-      }
-    })
-  };
-  return folders;
-}
-
 export default appReducer;

@@ -1,7 +1,7 @@
 
 ul{
-    position: relative;
-    left:20px;
+    position: relative !important;
+    left:20px !important;
 }
 
 .MuiAvatar-colorDefault {

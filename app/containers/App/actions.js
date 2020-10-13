@@ -37,10 +37,12 @@ export function deleteRepos(choosePathes) {
     choosePathes,
   };
 }
-export function deleteReposSuccess(choosePathes) {
+export function deleteReposSuccess(rootFolder) {
+  debugger;
+  console.log("action:",rootFolder);
   return {
     type: DELETE_REPOS_SUCCESS,
-    choosePathes,
+    rootFolder,
   };
 }
 export function deleteReposError(error) {

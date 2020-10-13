@@ -2,7 +2,9 @@ import React , {useState} from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { useInjectSaga } from 'utils/injectSaga';
 import PropTypes from 'prop-types';
+import saga from '../App/saga';
 import messages from './messages';
 import './dialog.css';
 import {
@@ -14,9 +16,10 @@ import {
   Button,
 } from '../../materialUi.moduls';
 import { deleteRepos } from '../App/actions';
-
-function DialogEarse({folders, deleteRep, choosePathes }) {
+const key = 'folder';
+function DialogEarse({ deleteRep, choosePathes }) {
   const [open, setOpen] = useState(true);
+  useInjectSaga({ key, saga });
 
   const handleClose = () => {
     setOpen(false);
@@ -37,7 +40,7 @@ function DialogEarse({folders, deleteRep, choosePathes }) {
           </Button>
          
           <Button 
-            onClick={() => { deleteRep(choosePathes); handleClose();}}
+            onClick={() => { deleteRep(choosePathes)} }
             color="primary" >           
             <FormattedMessage {...messages.ok} />
           </Button>
@@ -49,7 +52,6 @@ function DialogEarse({folders, deleteRep, choosePathes }) {
 }
 
 DialogEarse.propTypes = {
-  folders: PropTypes.object,
   deleteRep: PropTypes.func,
   choosePathes: PropTypes.array,
 };

@@ -54,6 +54,7 @@ export function* remove(action) {
 
   try {
     const list = yield call(request, requestURL, options);
+    console.log("log",list);
     yield put(deleteReposSuccess(list));
   } catch (err) {
     yield put(deleteReposError(err));

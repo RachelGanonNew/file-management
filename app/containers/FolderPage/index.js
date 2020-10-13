@@ -8,19 +8,19 @@ import { Button, DeleteIcon } from '../../materialUi.moduls';
 import { loadChildren, createNewFolder, deleteRepos } from '../App/actions';
 import './folderPage.css';
 import DialogEarse from '../DialogEarse';
+
 let choosePathes = [];
 export function FolderPage({ folders, onLoadChildren, createFolder, deleteRep }) {
   const MEASURE = 3;
   const [isToOpenDialog, setIsToOpenDialog] = useState(false);
-  const [isToOperateDelete, setisToOperateDelete] = useState(false);
   function navFunction() {
     if (choosePathes.length >= MEASURE) {
       if (!isToOpenDialog) {
         setIsToOpenDialog(true);
       }
     }
-    else if (!isToOperateDelete) {
-      setisToOperateDelete(true);
+    else  {
+      deleteRep();
     }
   }
   function chooseDetails(path) {
@@ -44,7 +44,7 @@ export function FolderPage({ folders, onLoadChildren, createFolder, deleteRep })
         Delete
       </Button>
       {isToOpenDialog && <DialogEarse deleteRep={deleteRep} choosePathes={choosePathes} folders={folders} />}
-      {isToOperateDelete && deleteRep()}
+      {/* {isToOperateDelete && deleteRep()} */}
       <NavRepos
         key={folders.path}
         onLoadChildren={onLoadChildren}
@@ -73,7 +73,7 @@ const mapStateToProps = (state) => ({ folders: state.global.rootFolder })
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadChildren: path => dispatch(loadChildren(path)),
-  deleteRep: () => dispatch(deleteRepos(choosePathes)),
+  deleteRep: () => { dispatch(deleteRepos(choosePathes))},
   createFolder: (path, name) => dispatch(createNewFolder(path, name)),
 
 });
