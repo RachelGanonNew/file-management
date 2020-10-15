@@ -19,11 +19,8 @@ const _ = deepdash(lodash);
 export const initialState = {
   loading: false,
   error: false,
-  rootFolder: {
-    path: '',
-    name: '',
-    children: []
-  },
+  rootFolder: {},
+  list:[]
 };
 
 const appReducer = (state = initialState, action) =>
@@ -63,10 +60,10 @@ const appReducer = (state = initialState, action) =>
       case LOAD_LIST:
         draft.loading = true;
         draft.error = false;
-        draft.rootFolder = false;
         break;
       case LOAD_LIST_SUCCESS:
-        draft.rootFolder = action.list;
+        debugger;
+        draft.list = action.list;
         draft.loading = false;
         break;
       default:
