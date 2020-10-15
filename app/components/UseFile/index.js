@@ -17,15 +17,15 @@ import {
 } from '../../materialUi.moduls';
 
 function UseFile(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isChoose, setIsChoose] = useState(null);
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const [isChoose, setIsChoose] = useState(false);
 
   const onChoose = (event, childPath) => {
     if (!isChoose)
@@ -33,6 +33,11 @@ function UseFile(props) {
     else setIsChoose(false);
     props.chooseDetails(childPath);
   }
+
+  // const onChoose = (event, childPath) => {
+  //   setIsChoose(!isChoose);
+  //   props.chooseDetails(childPath);
+  // }
   return <List>
     <ListItem>
       <ListItemAvatar>

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,createRef } from 'react';
 import propTypes from 'prop-types';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import NavRepos from '../navRepos';
@@ -31,21 +31,27 @@ const useStyles = makeStyles((theme) =>
       margin: theme.spacing(3),
     },
   }));
+
 function Folder({ onLoadChildren, path, name, childrenList, createFolder, chooseDetails }) {
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [onClickAdd, setOnClickAdd] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const classes = useStyles();
   const [isChoose, setIsChoose] = useState(false);
-  const onChoose = (event, childPath) =>{
+
+  const checkBox = createRef();
+
+  const onChoose = ( childPath) =>{
     if(!isChoose)
       setIsChoose(true);
     else setIsChoose(false);
     chooseDetails(childPath);
   }
+  const classes = useStyles();
+
   const openAddFolder = () =>{
     setOnClickAdd(true);
   }
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -56,9 +62,10 @@ function Folder({ onLoadChildren, path, name, childrenList, createFolder, choose
 
   useEffect(() => {
   }, [isFolderOpen]);
-  const openFolder = (event, p) => {
+
+  const openFolder = (folderPath) => {
     if (!isFolderOpen) {
-      onLoadChildren(p);
+      onLoadChildren(folderPath);
       setIsFolderOpen(true);
     }
     else {
@@ -67,11 +74,12 @@ function Folder({ onLoadChildren, path, name, childrenList, createFolder, choose
   };
 
   return (<>
+  <ul>
     <List>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <FolderIcon onClick={(f) => { openFolder(f, path) }} />
+            <FolderIcon onClick={() => { openFolder(path) }} />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary={name}></ListItemText>
@@ -97,7 +105,10 @@ function Folder({ onLoadChildren, path, name, childrenList, createFolder, choose
             <Divider className="menu-blue" />
             <MenuItem onClick={handleClose}>
               <Tooltip title="Mark It For Delete">
-                <Checkbox className="menu-blue" onClick={(e) => { onChoose(e, path) }}></Checkbox>
+                <Checkbox
+                  className="menu-blue"
+                  ref={checkBox} 
+                  onClick={() => {checkBox.current.focus(); onChoose(path)}}></Checkbox>
               </Tooltip>
             </MenuItem>
           </Menu>
@@ -116,6 +127,7 @@ function Folder({ onLoadChildren, path, name, childrenList, createFolder, choose
         createFolder={createFolder}
       /> : null
     }
+  </ul>
   </>)
 }
 

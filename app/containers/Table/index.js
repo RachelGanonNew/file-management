@@ -1,3 +1,4 @@
+
 /* eslint-disable no-restricted-syntax */
 import { useTable } from 'react-table'
 import React from 'react';
@@ -55,7 +56,6 @@ export function Table() {
     rows,
     prepareRow,
   } = useTable({ columns, data: getData() })
-
   return (<>
 
     <CssBaseline />

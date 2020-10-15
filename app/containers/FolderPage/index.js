@@ -7,16 +7,16 @@ import NavRepos from '../../components/navRepos/index';
 import { Button, DeleteIcon } from '../../materialUi.moduls';
 import { loadChildren, createNewFolder, deleteRepos } from '../App/actions';
 import './folderPage.css';
-import DialogEarse from '../DialogEarse';
+import DialogEarse from '../../components/DialogEarse';
 
 let choosePathes = [];
 export function FolderPage({ folders, onLoadChildren, createFolder, deleteRep }) {
   const MEASURE = 3;
-  const [isToOpenDialog, setIsToOpenDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   function navFunction() {
     if (choosePathes.length >= MEASURE) {
-      if (!isToOpenDialog) {
-        setIsToOpenDialog(true);
+      if (!showDialog) {
+        setShowDialog(true);
       }
     }
     else  {
@@ -43,8 +43,7 @@ export function FolderPage({ folders, onLoadChildren, createFolder, deleteRep })
       >
         Delete
       </Button>
-      {isToOpenDialog && <DialogEarse deleteRep={deleteRep} choosePathes={choosePathes} folders={folders} />}
-      {/* {isToOperateDelete && deleteRep()} */}
+      {showDialog && <DialogEarse deleteRep={deleteRep} choosePathes={choosePathes} folders={folders} />}
       <NavRepos
         key={folders.path}
         onLoadChildren={onLoadChildren}

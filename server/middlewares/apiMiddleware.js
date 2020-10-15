@@ -19,6 +19,13 @@ router.use((req, res, next) => {
   next();
 });
 
+router.get('/list', (req, res) => {
+  fs.readFile(jsonPath, 'utf8', (err, data) => {
+    res.end(data);
+
+  });
+});
+
 router.get('/get/*', (req, res) => {
   fs.readFile(jsonPath, 'utf8', (err, data) => {
     const list = JSON.parse(data);
@@ -47,10 +54,9 @@ router.post('/add/*', (req, res) => {
 
 router.post('/delete/*', (req, res) => {
   fs.readFile(jsonPath, 'utf8', (err, data) => {
-    console.log("this is delete");
     const list = JSON.parse(data);
     const pathes = req.body;
-    const newList = _deleteItems(list, pathes.choosePathes);
+    const newList = sendToDelete(list, pathes.choosePathes);
     const jsonData = JSON.stringify(newList);
 
     fs.writeFile(jsonPath, jsonData, writeFileErr => {
@@ -63,7 +69,13 @@ router.post('/delete/*', (req, res) => {
   });
 });
 
-
+const sendToDelete = (list,pathes)=>
+{
+  pathes.forEach(path=>{
+    deleteDeep(list,path);
+  });
+  return list;
+}
 // Private functions
 const deep = (list, p) => {
   if (!p) {
@@ -85,6 +97,19 @@ const lazyLoading = list => {
   });
   return repos;
 }
+let deleteDeep = (data, path) => {
+  for (let i = 0; i < data.length; i+=1) {
+    if (data[i].path === path) {
+      delete data[i];
+      return;
+    }
+  }
+  if ('children' in data[0]) {
+    return deleteDeep(data[0].children, path);
+  }
+  return;
+}
+
 
 const _addItem = (list, itemPath, itemName) => {
   if (isValid(itemName)) {
@@ -95,20 +120,5 @@ const _addItem = (list, itemPath, itemName) => {
   return list;
 }
 const isValid = (name) => name !== '' && name !== ' ';
-
-const _deleteItems = (list, pathes) => {
-  console.log("list api",list);
-  console.log("pathes api",pathes);
-  if (pathes) {
-    pathes.forEach(element => {
-      console.log("elem",element);
-      console.log("befor list",JSON.stringify(list)) ;
-      list = _.filterDeep(list, { path: element }, { childrenPath: "children", skipChildren: true });
-      console.log("filter list",JSON.stringify(list)) ;
-    })
-  }
-  console.log("return list",list);
-  return list;
-}
 
 module.exports = router;

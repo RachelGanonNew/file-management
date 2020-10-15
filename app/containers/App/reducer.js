@@ -11,6 +11,9 @@ import {
   DELETE_REPOS,
   DELETE_REPOS_SUCCESS,
   DELETE_REPOS_ERROR,
+  LOAD_LIST,
+  LOAD_LIST_SUCCESS,
+  LOAD_LIST_ERROR
 } from './constants';
 const _ = deepdash(lodash);
 export const initialState = {
@@ -53,7 +56,17 @@ const appReducer = (state = initialState, action) =>
       case LOAD_CHILDREN_ERROR:
       case CREATE_FOLDER_ERROR:
       case DELETE_REPOS_ERROR:
+      case LOAD_LIST_ERROR:
         draft.error = action.error;
+        draft.loading = false;
+        break;
+      case LOAD_LIST:
+        draft.loading = true;
+        draft.error = false;
+        draft.rootFolder = false;
+        break;
+      case LOAD_LIST_SUCCESS:
+        draft.rootFolder = action.list;
         draft.loading = false;
         break;
       default:

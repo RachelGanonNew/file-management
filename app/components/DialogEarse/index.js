@@ -2,9 +2,9 @@ import React , {useState} from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { useInjectSaga } from 'utils/injectSaga';
+// import { useInjectSaga } from 'utils/injectSaga';
 import PropTypes from 'prop-types';
-import saga from '../App/saga';
+// import saga from '../../containers/App/saga';
 import messages from './messages';
 import './dialog.css';
 import {
@@ -15,11 +15,11 @@ import {
   DialogContent,
   Button,
 } from '../../materialUi.moduls';
-import { deleteRepos } from '../App/actions';
-const key = 'folder';
+import { deleteRepos } from '../../containers/App/actions';
+
 function DialogEarse({ deleteRep, choosePathes }) {
+  debugger;
   const [open, setOpen] = useState(true);
-  useInjectSaga({ key, saga });
 
   const handleClose = () => {
     setOpen(false);
@@ -64,4 +64,5 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps
 );
-export default compose(withConnect)(DialogEarse);
+compose(withConnect)
+export default (DialogEarse);

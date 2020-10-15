@@ -29,6 +29,8 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import { Alert, AlertTitle } from '@material-ui/lab';
+
 export  {
   Button,
   Dialog,
@@ -61,4 +63,6 @@ export  {
   TableHead,
   TableRow,
   FolderOpenIcon,
+  Alert,
+  AlertTitle,
 };

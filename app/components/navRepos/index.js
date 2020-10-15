@@ -9,13 +9,12 @@ const key = 'folder';
 
 
 const NavRepos = ({ path, childrenList, onLoadChildren, createFolder, chooseDetails }) => {
-  console.log("nav repos", childrenList);
   useInjectSaga({ key, saga });
   useEffect(() => {
     if (path === '') onLoadChildren(path);
   }, []);
   const render = () =>
-    childrenList && childrenList.map(child =>
+    childrenList && childrenList[0] !== null && childrenList.map(child =>
       child.type === key ? (
         <Folder
           key={child.path}
@@ -34,7 +33,7 @@ const NavRepos = ({ path, childrenList, onLoadChildren, createFolder, chooseDeta
             path={child.path}
             name={child.name}
             chooseDetails={chooseDetails} /></ul>
-      ),
+      )
     );
   return (
     <>

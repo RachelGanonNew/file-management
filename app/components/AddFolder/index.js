@@ -4,33 +4,34 @@ import { TextField } from '../../materialUi.moduls';
 
 function AddFolder({path,createNewFolder}) {
   const [folderNameInput,setFolderNameInput]=useState("");
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [status, setStatus]=useState("");
+  // const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   // setAnchorEl(null);
+  // };
 
   const updateFolderNameInput= event =>{
     setFolderNameInput(event.target.value);
   };
-  const createFolder=()=>{
-    createNewFolder(path,folderNameInput);
-    setFolderNameInput("");
-  };
+  // const createFolder=()=>{
+  //   createNewFolder(path, folderNameInput);
+  //   setFolderNameInput("");
+  // };
   function add(event){
     if(event.key === 'Enter'){
-      createFolder(path,folderNameInput);
+      createNewFolder(path, folderNameInput);
       setFolderNameInput("");
-      handleClose();
+      setStatus(event.key);
     }
   }
-  return ( <>
+  return ( <div className={status==='Enter' && 'hide-add-folder'}>
     <TextField
       id="outlined-basic" 
       label="Folder Name"
       onChange={updateFolderNameInput}
       variant="outlined" onKeyPress={(event) => add(event)} />
-  </>
+  </div>
   )
 }
 

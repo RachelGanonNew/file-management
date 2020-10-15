@@ -8,6 +8,9 @@ import {
   DELETE_REPOS,
   DELETE_REPOS_SUCCESS,
   DELETE_REPOS_ERROR,
+  LOAD_LIST,
+  LOAD_LIST_SUCCESS,
+  LOAD_LIST_ERROR
 } from './constants';
 
 export function loadChildren(path) {
@@ -72,5 +75,22 @@ export function createNewFolderError(error) {
     error,
   };
 }
+export function loadList() {
+  return {
+    type: LOAD_LIST,
+  };
+}
 
+export function listLoaded(list) {
+  return {
+    type: LOAD_LIST_SUCCESS,
+    list,
+  };
+}
 
+export function listLoadingError(error) {
+  return {
+    type: LOAD_LIST_ERROR,
+    error,
+  };
+}

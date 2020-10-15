@@ -4,7 +4,8 @@ import request from 'utils/request';
 import { 
   LOAD_CHILDREN ,
   CREATE_FOLDER,
-  DELETE_REPOS
+  DELETE_REPOS,
+  LOAD_LIST
 } from './constants';
 import { 
   loadChildrenSuccess, 
@@ -12,7 +13,10 @@ import {
   createNewFolderSuccess,
   createNewFolderError ,
   deleteReposSuccess,
-  deleteReposError
+  deleteReposError,
+  listLoaded,
+  listLoadingError
+  
 } from './actions';
 const baseUrl = '/api';
 
@@ -25,6 +29,18 @@ export function* loadChildren(action) {
     yield put(loadChildrenError(err));
   }
 }
+
+export function* getList() {
+  const requestURL = `${baseUrl}/list`;
+
+  try {
+    const list = yield call(request, requestURL);
+    yield put(listLoaded(list));
+  } catch (err) {
+    yield put(listLoadingError(err));
+  }
+}
+
 export function* add(action) {
   const requestURL = `${baseUrl}/add/${action.path}`;
   const options = {
@@ -66,5 +82,6 @@ export default function* childrenData() {
   yield takeLatest(LOAD_CHILDREN, loadChildren);
   yield takeEvery(CREATE_FOLDER, add);
   yield takeEvery(DELETE_REPOS, remove);
+  yield takeLatest(LOAD_LIST, getList);
 }
 
