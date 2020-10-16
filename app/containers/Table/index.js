@@ -1,5 +1,5 @@
 import { useTable } from 'react-table'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -18,13 +18,15 @@ import './table.css';
 export function Table({ list, onLoadList }) {
   useInjectSaga({ key: 'table', saga });
   useEffect(() => {
-    if (list.path === ""||!list) onLoadList();
-  }, []);
-
+    if (!list) {
+      onLoadList();
+    }
+  }, [list]);
   const getData = () => {
     const types = new Map([['jpg', 0], ['png', 0], ['docs', 0], ['pdf', 0]]);
-
     const GetSummary = dataList => {
+      console.log('get summary', dataList);
+      console.log('get summary', dataList.type);
       dataList.forEach(item => {
         if (item.type === 'folder' && item.children) {
           GetSummary(item.children);
@@ -34,84 +36,79 @@ export function Table({ list, onLoadList }) {
           types.set(currentType, (types.has(currentType) ? types.get(currentType) : 0) + 1);
         }
       })
-      // for (let i = 0; i < dataList.length; i += 1) {
-      //   if (dataList[i].type === 'folder' && dataList[i].children) {
-      //     GetSummary(dataList[i].children);
-      //   }
-      //   else {
-      //     const currentType = dataList[i].type;
-      //     types.set(currentType, (types.has(currentType) ? types.get(currentType) : 0) + 1);
-      //   }
-      // }
     };
-    if(list.path !== ""&&list) GetSummary(list);
+    if (list) GetSummary(list);
     const data = [];
-    types.forEach(type => {
-      data.push({ type, amount: types.get(type) })
+    types.forEach((value, key) => {
+      data.push({ key, amount: types.get(key) })
     });
     return data;
   }
-
-  const columns = [
-    {
-      Header: 'Repository type ',
-      accessor: 'type',
-    },
-    {
-      Header: 'Amount',
-      accessor: 'amount',
-    },
-  ];
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({ columns, data: getData() })
-
-  return (<>
-    <CssBaseline />
-    <MaUTable  {...getTableProps()}>
-      <TableHead>
-        {headerGroups.map(headerGroup => (
-          <TableRow  {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <TableCell
-                {...column.getHeaderProps()}
-              >
-                {column.render('Header')}
-              </TableCell >
-            ))}
-          </TableRow >
-        ))}
-      </TableHead>
-      <TableBody {...getTableBodyProps()}>
-        {rows.map(row => {
-          prepareRow(row)
-          return (
-            <TableRow  {...row.getRowProps()}>
-              {row.cells.map(cell => (
+  function Myfunc() {
+    const columns = [
+      {
+        Header: 'Repository type ',
+        accessor: 'type',
+      },
+      {
+        Header: 'Amount',
+        accessor: 'amount',
+      },
+    ];
+    const {
+      getTableProps,
+      getTableBodyProps,
+      headerGroups,
+      rows,
+      prepareRow,
+    } = useTable({ columns, data: getData() })
+    return (<>
+      <CssBaseline />
+      <MaUTable  {...getTableProps()}>
+        <TableHead>
+          {headerGroups.map(headerGroup => (
+            <TableRow  {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
                 <TableCell
-                  {...cell.getCellProps()}
+                  {...column.getHeaderProps()}
                 >
-                  {cell.render('Cell')}
+                  {column.render('Header')}
                 </TableCell >
               ))}
             </TableRow >
-          )
-        })}
-      </TableBody>
-    </MaUTable>
-  </>)
+          ))}
+        </TableHead>
+        <TableBody {...getTableBodyProps()}>
+          {rows.map(row => {
+            return (
+              <TableRow  >
+                <TableCell
+                >
+                  {row.original.key}
+                </TableCell >
+                <TableCell
+                >
+                  {row.original.amount}
+                </TableCell >
+              </TableRow >
+            )
+          })}
+        </TableBody>
+      </MaUTable>
+    </>);
+  }
+  return (
+    <div>
+      {list && <Myfunc />}
+    </div>
+  )
 };
 Table.propTypes = {
   onLoadList: PropTypes.func,
-  list: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  list: PropTypes.any,
 };
 
-const mapStateToProps = (state) => ({ list: state.global.rootFolder })
+const mapStateToProps = (state) => ({ list: state.global.list })
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadList: () => dispatch(loadList()),

@@ -20,7 +20,7 @@ export const initialState = {
   loading: false,
   error: false,
   rootFolder: {},
-  list:[]
+  list:false
 };
 
 const appReducer = (state = initialState, action) =>
@@ -31,7 +31,6 @@ const appReducer = (state = initialState, action) =>
       case LOAD_CHILDREN:
       case CREATE_FOLDER:
       case DELETE_REPOS:
-        debugger;
         draft.loading = true;
         draft.error = false;
         break;
