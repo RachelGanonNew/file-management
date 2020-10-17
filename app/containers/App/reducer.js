@@ -1,6 +1,4 @@
 import produce from 'immer';
-import deepdash from 'deepdash';
-import lodash from 'lodash-es';
 import {
   LOAD_CHILDREN,
   LOAD_CHILDREN_SUCCESS,
@@ -15,7 +13,6 @@ import {
   LOAD_LIST_SUCCESS,
   LOAD_LIST_ERROR
 } from './constants';
-const _ = deepdash(lodash);
 export const initialState = {
   loading: false,
   error: false,
