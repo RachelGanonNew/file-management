@@ -19,7 +19,11 @@ const _ = deepdash(lodash);
 export const initialState = {
   loading: false,
   error: false,
-  rootFolder: {},
+  rootFolder: {
+    path: '',
+    name: '',
+    children: []
+  },
   list:false
 };
 
@@ -31,6 +35,7 @@ const appReducer = (state = initialState, action) =>
       case LOAD_CHILDREN:
       case CREATE_FOLDER:
       case DELETE_REPOS:
+      case LOAD_LIST:
         draft.loading = true;
         draft.error = false;
         break;
@@ -41,14 +46,22 @@ const appReducer = (state = initialState, action) =>
         draft.rootFolder = { ...state.rootFolder };
         draft.loading = false;
         break;
+
       case CREATE_FOLDER_SUCCESS:
+        draft.loading = false;
         break;
+
       case DELETE_REPOS_SUCCESS:
-        debugger;
         const deleteItemsState = JSON.parse(JSON.stringify(state.rootFolder));
         deleteItemsState.children = JSON.parse(JSON.stringify(action.rootFolder));
         draft.rootFolder = deleteItemsState;
         break;
+
+      case LOAD_LIST_SUCCESS:
+        draft.list = action.list;
+        draft.loading = false;
+        break;
+
       case LOAD_CHILDREN_ERROR:
       case CREATE_FOLDER_ERROR:
       case DELETE_REPOS_ERROR:
@@ -56,15 +69,7 @@ const appReducer = (state = initialState, action) =>
         draft.error = action.error;
         draft.loading = false;
         break;
-      case LOAD_LIST:
-        draft.loading = true;
-        draft.error = false;
-        break;
-      case LOAD_LIST_SUCCESS:
-        debugger;
-        draft.list = action.list;
-        draft.loading = false;
-        break;
+
       default:
     }
 

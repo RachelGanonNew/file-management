@@ -107,7 +107,7 @@ let deleteDeep = (data, path) => {
   if ('children' in data[0]) {
     return deleteDeep(data[0].children, path);
   }
-  return;
+  
 }
 
 

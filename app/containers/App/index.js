@@ -1,7 +1,5 @@
 import React, { Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import ErrorBoundary from '../../ErrorBoundry/error-boundry';
 const HomePage = lazy(() => import('../HomePage/Loadable'));
 const FolderPage = lazy(() => import('../FolderPage'));
@@ -10,9 +8,6 @@ const NotFoundPage = lazy(() => import('../NotFoundPage/Loadable'));
 export  function App() {
   return (
     <>
-
-      {/* <Header /> */}
-      {/* <ErrorBoundary> */}
       <Suspense fallback={<div>Loading...</div>}>
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -21,9 +16,6 @@ export  function App() {
           <Route component={NotFoundPage} />
         </Switch>
       </Suspense>
-      {/* </ErrorBoundary> */}
-      {/* <Footer /> */}
-
     </>
 
   );

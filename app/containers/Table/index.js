@@ -1,5 +1,5 @@
 import { useTable } from 'react-table'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -116,7 +116,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const withConnect = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 );
 export default compose(withConnect)(Table);
 

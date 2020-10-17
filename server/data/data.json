@@ -1,1 +1,40 @@
-[{"id":0,"type":"folder","name":"animals","path":"/animals","children":[{"id":0,"type":"folder","name":"cat","path":"/animals/cat","children":[{"id":0,"type":"folder","name":"images","path":"/animals/cat/images","children":[{"id":0,"type":"jpg","name":"cat001.jpg","path":"/animals/cat/images/cat001.jpg"},{"id":1,"type":"jpg","name":"cat001.jpg","path":"/animals/cat/images/cat002.jpg"}]}]}]}]
+[
+    {
+      "id": 0,
+      "type": "folder",
+      "name": "animals",
+      "path": "/animals",
+      "children": [
+        {
+          "id": 0,
+          "type": "folder",
+          "name": "cat",
+          "path": "/animals/cat",
+          "children": [
+            {
+              "id": 0,
+              "type": "folder",
+              "name": "images",
+              "path": "/animals/cat/images",
+              "children": [
+                {
+                  "id": 0,
+                  "type": "jpg",
+                  "name": "cat001.jpg",
+                  "path": "/animals/cat/images/cat001.jpg"
+                },
+                {
+                  "id": 1,
+                  "type": "jpg",
+                  "name": "cat001.jpg",
+                  "path": "/animals/cat/images/cat002.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  
+  

@@ -41,8 +41,6 @@ export function deleteRepos(choosePathes) {
   };
 }
 export function deleteReposSuccess(rootFolder) {
-  debugger;
-  console.log("action:",rootFolder);
   return {
     type: DELETE_REPOS_SUCCESS,
     rootFolder,
