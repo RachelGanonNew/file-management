@@ -69,10 +69,9 @@ router.post('/delete/*', (req, res) => {
   });
 });
 
-const sendToDelete = (list,pathes)=>
-{
-  pathes.forEach(path=>{
-    deleteDeep(list,path);
+const sendToDelete = (list, pathes) => {
+  pathes.forEach(path => {
+    deleteDeep(list, path);
   });
   return list;
 }
@@ -97,19 +96,20 @@ const lazyLoading = list => {
   });
   return repos;
 }
-let deleteDeep = (data, path) => {
-  for (let i = 0; i < data.length; i+=1) {
+
+let deleteDeep = (data, path, pos = 0) => {
+  for (let i = 0; i < data.length; i += 1) {
     if (data[i].path === path) {
       delete data[i];
       return;
     }
   }
-  if ('children' in data[0]) {
-    return deleteDeep(data[0].children, path);
+  for (let i = pos; i < data.length; i+=1) {
+    if ('children' in data[i]) {
+      deleteDeep(data[i].children, path, i);
+    }
   }
-  
 }
-
 
 const _addItem = (list, itemPath, itemName) => {
   if (isValid(itemName)) {

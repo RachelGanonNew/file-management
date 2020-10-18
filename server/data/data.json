@@ -34,6 +34,19 @@
           ]
         }
       ]
+    },
+    {
+      "id": 1,
+      "type": "folder",
+      "name": "children",
+      "path": "/children",
+      "children": [
+    {
+      "id": 0,
+      "type": "jpg",
+      "name": "child001.jpg",
+      "path": "/children/child001.jpg"
+    }]
     }
   ]
   
